@@ -13,7 +13,6 @@ body {
     justify-content: center;
 }
 
-
 body::before {
     background-image: url("img/code.png");
     background-repeat: no-repeat;
@@ -24,6 +23,7 @@ body::before {
     width: 100%;
     height: 100%;
     opacity: 0.4;
+    pointer-events: none;
 }
 
 .container {
@@ -39,7 +39,6 @@ body::before {
     background-size: 100% 100%;
     position: relative;
 }
-
 
 .container__conteudo {
     display: flex;
@@ -62,6 +61,12 @@ body::before {
     font-weight: 700;
     border: none;
     margin-top: 2rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.container__botao:hover:not(:disabled) {
+    background-color: #1059b8;
 }
 
 .container__texto {
@@ -83,6 +88,7 @@ body::before {
     font-size: 24px;
     font-weight: 700;
     font-family: 'Inter', sans-serif;
+    outline: none;
 }
 
 .container__botoes {
@@ -108,10 +114,11 @@ button {
 
 button:disabled {
     background-color: gray;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 @media screen and (max-width: 1250px) {
-
     h1 {
         font-size: 50px;
     }
@@ -119,7 +126,6 @@ button:disabled {
     .container__botao {
         font-size: 16px;
     }
-
 
     .texto__paragrafo {
         font-size: 24px;
@@ -135,6 +141,6 @@ button:disabled {
     }
 
     .container__informacoes {
-        padding: 1rem
+        padding: 1rem;
     }
 }

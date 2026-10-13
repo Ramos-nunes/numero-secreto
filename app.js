@@ -5,8 +5,17 @@ let tentativas = 1;
 
 function exibirTextoNaTela(tag, texto) {
     let campo = document.querySelector(tag);
-    campo.innerHTML = texto;
-    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.2});
+    if (campo) {
+        campo.innerHTML = texto;
+    }
+
+    // Voz nativa do navegador (Web Speech API) - gratuita, offline e sem quebrar o código
+    if ('speechSynthesis' in window) {
+        let utterance = new SpeechSynthesisUtterance(texto);
+        utterance.lang = 'pt-BR';
+        utterance.rate = 1.2;
+        window.speechSynthesis.speak(utterance);
+    }
 }
 
 function exibirMensagemInicial() {
@@ -17,9 +26,16 @@ function exibirMensagemInicial() {
 exibirMensagemInicial();
 
 function verificarChute() {
-    let chute = document.querySelector('input').value;
-    
-    if (chute == numeroSecreto) {
+    let input = document.querySelector('input');
+    let chute = parseInt(input.value);
+
+    // Evita erro se o usuário clicar em "Chutar" sem digitar nada
+    if (isNaN(chute)) {
+        exibirTextoNaTela('p', 'Por favor, digite um número!');
+        return;
+    }
+
+    if (chute === numeroSecreto) {
         exibirTextoNaTela('h1', 'Acertou!');
         let palavraTentativa = tentativas > 1 ? 'tentativas' : 'tentativa';
         let mensagemTentativas = `Você descobriu o número secreto com ${tentativas} ${palavraTentativa}!`;
@@ -40,21 +56,24 @@ function gerarNumeroAleatorio() {
     let numeroEscolhido = parseInt(Math.random() * numeroLimite + 1);
     let quantidadeDeElementosNaLista = listaDeNumerosSorteados.length;
 
-    if (quantidadeDeElementosNaLista == numeroLimite) {
+    if (quantidadeDeElementosNaLista === numeroLimite) {
         listaDeNumerosSorteados = [];
     }
     if (listaDeNumerosSorteados.includes(numeroEscolhido)) {
         return gerarNumeroAleatorio();
     } else {
         listaDeNumerosSorteados.push(numeroEscolhido);
-        console.log(listaDeNumerosSorteados)
+        console.log(listaDeNumerosSorteados);
         return numeroEscolhido;
     }
 }
 
 function limparCampo() {
-    chute = document.querySelector('input');
-    chute.value = '';
+    let chute = document.querySelector('input');
+    if (chute) {
+        chute.value = '';
+        chute.focus();
+    }
 }
 
 function reiniciarJogo() {
@@ -62,12 +81,5 @@ function reiniciarJogo() {
     limparCampo();
     tentativas = 1;
     exibirMensagemInicial();
-    document.getElementById('reiniciar').setAttribute('disabled', true)
+    document.getElementById('reiniciar').setAttribute('disabled', true);
 }
-
-
-
-
-
-
-
