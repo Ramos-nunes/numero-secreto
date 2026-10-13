@@ -36,7 +36,7 @@ Aceda à pasta do projeto:
 
 ## Bash
 cd numero-secreto
-Abra o ficheiro index.html em qualquer navegador web (ou utilize a extensão Live Server do VS Code).
+## Abra o ficheiro index.html em qualquer navegador web (ou utilize a extensão Live Server do VS Code).
 
 ---
 
