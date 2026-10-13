@@ -34,12 +34,11 @@ Aceda à pasta do projeto:
 
 ---
 
-##
-Bash
+## Bash
 cd numero-secreto
 Abra o ficheiro index.html em qualquer navegador web (ou utilize a extensão Live Server do VS Code).
 
 ---
 
-##👤 Autor
+## 👤 Autor
 Desenvolvido por José dos Ramos (Ramos-nunes).
